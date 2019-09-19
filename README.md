@@ -135,7 +135,7 @@ __Цель данной работы__  — разработка структу�
 [git]:         https://git-scm.com/book/ru/v2
 [gtest]:       https://github.com/google/googletest
 [sieve]:       http://habrahabr.ru/post/91112
-[travis]:      https://travis-ci.org/UNN-VMK-Software/mp2-lab1-set
+[travis]:      https://travis-ci.org/UNN-ITMM-Software/mp2-lab1-set
 [git-guide]:   https://github.com/UNN-ITMM-Software/mp2-lab1-set/blob/master/docs/part1-git.md
 [gtest-guide]: https://github.com/UNN-ITMM-Software/mp2-lab1-set/blob/master/docs/part2-google-test.md
 [youtube-playlist]: https://www.youtube.com/playlist?list=PLSzOhsr5tmhrgV7u7CSzX4Ki1a9r0AKzV
