@@ -107,10 +107,16 @@ TSet TSet::operator~(void) // дополнение
 
 istream &operator>>(istream &istr, TSet &s) // ввод
 {
+	string arr;
+	istr >> arr;
+	for (int i = 0; i < arr.size(); ++i) s.InsElem(arr[i]);
 	return istr;
 }
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
+	ostr << '{';
+	for (int i = 0; i < s.MaxPower; ++i) if (s.IsMember(i)) ostr << i << ' ';
+	ostr  <<'}';
 	return ostr;
 }

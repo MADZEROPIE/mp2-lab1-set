@@ -142,6 +142,16 @@ TBitField TBitField::operator~(void) // отрицание
 
 istream &operator>>(istream &istr, TBitField &bf) // ввод
 {
+	string arr;
+	istr >> arr;
+	delete[] bf.pMem;
+	bf.BitLen = arr.size();
+	bf.MemLen = (bf.BitLen - 1) / TelemBit + 1;
+	bf.pMem = new TELEM[bf.MemLen];
+	for (int i = 0; i < bf.BitLen; ++i) {
+		if (arr[i] == 1) bf.SetBit(i); 
+		else bf.ClrBit(i);
+	}
 	return istr;
 }
 
