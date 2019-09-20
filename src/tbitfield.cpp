@@ -130,8 +130,16 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 
 TBitField TBitField::operator~(void) // отрицание
 {
-	TBitField res(BitLen);
-	for (int i = 0; i < BitLen; ++i) {
+	//TBitField res(BitLen);
+	//for (int i = 0; i < BitLen; ++i) {
+	//	if (GetBit(i)) res.ClrBit(i);
+	//	else res.SetBit(i);
+	//}
+	TBitField res(*this);
+	for (int i = 0; i < MemLen-1; ++i) {
+		res.pMem[i] = ~pMem[i];
+	}
+	for(int i = (MemLen-1)*TelemBit; i < BitLen; ++i){
 		if (GetBit(i)) res.ClrBit(i);
 		else res.SetBit(i);
 	}
