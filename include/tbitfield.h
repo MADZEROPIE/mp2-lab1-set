@@ -12,8 +12,9 @@
 
 using namespace std;
 
-typedef unsigned int TELEM;
-const int TelemBit = sizeof(TELEM) * 8;
+typedef unsigned long long int TELEM;
+const int TelemBit = sizeof(TELEM) * 8; //Бит в TELEM
+const TELEM one = 1; //Для корректной работы с uint64 (иначе при записи len=1<<что-то там, он берет 1 как (u)int32, а потом результат приводит в uint64)
 
 class TBitField
 {
