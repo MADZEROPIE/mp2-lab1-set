@@ -353,6 +353,6 @@ TEST(TBitField, can_do_OR_correctly) {
 	TBitField res1 = bf1 | bf2;
 	TBitField res2 = bf2 | bf1;
 
-	EXPECT_EQ(bf3, res1);
+	EXPECT_EQ(bf3, res1); //  Тут было NE, но они же наоборот должны быть равны (?)
 	EXPECT_EQ(bf3, res2);
 }

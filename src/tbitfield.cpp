@@ -40,7 +40,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
 	if (n<0 || n>BitLen) throw(exception()); // Можно выкидывать что-то попроще (?)
-	return one<<(n&(TelemBit-1));
+	return one<<(n&(TelemBit-1)); //one = TELEM(1)
 }
 
 // доступ к битам битового поля
@@ -102,25 +102,28 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
 	TBitField res(bf);
-	int len = MemLen;
+	int len = MemLen,minbtlen=BitLen;
 	if (bf.BitLen < BitLen) {
 		len = bf.MemLen;
+		minbtlen = bf.BitLen;
 		res = *this;
 	}
-	for (int i = 0; i < len; ++i) res.pMem[i] = bf.pMem[i] | pMem[i];
+	for (int i = 0; i < len-1; ++i) res.pMem[i] = bf.pMem[i] | pMem[i];
+	for (int i = (len - 1) * TelemBit; i < minbtlen; ++i) if (bf.GetBit(i) || GetBit(i)) res.SetBit(i); //На случай, если в "хвосте" лежит мусор, чего быть не должно
 	return res;
 		
 }
 
 TBitField TBitField::operator&(const TBitField& bf) // операция "и"
 {
-	int len = MemLen,btlen=bf.BitLen;
+	int len = MemLen,maxbtlen=bf.BitLen,minbtlen = BitLen;
 	if (bf.BitLen < BitLen) {
 		len = bf.MemLen;
-		btlen = BitLen;
+		maxbtlen = BitLen; minbtlen = bf.BitLen;
 	}
-	TBitField res(btlen);
-	for(int i=0;i<len;++i) res.pMem[i] = bf.pMem[i] & pMem[i];
+	TBitField res(maxbtlen);
+	for(int i=0;i<len-1;++i) res.pMem[i] = bf.pMem[i] & pMem[i];
+	for (int i = (len - 1) * TelemBit; i < minbtlen; ++i) if (bf.GetBit(i) && GetBit(i)) res.SetBit(i); //На случай, если в "хвосте" лежит мусор, чего быть не должно
 	return res;
 }
 
