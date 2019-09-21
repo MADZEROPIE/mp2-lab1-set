@@ -12,8 +12,9 @@
 
 using namespace std;
 
-typedef unsigned int TELEM;
+typedef unsigned long long int TELEM;
 const int TelemBit = sizeof(TELEM) * 8;
+const TELEM one = 1;
 
 class TBitField
 {

@@ -239,7 +239,7 @@ TEST(TBitField, can_invert_bitfield)
 
 TEST(TBitField, can_invert_large_bitfield)
 {
-  const int size = 38;
+  const int size = 70;
   TBitField bf(size), negBf(size), expNegBf(size);
   bf.SetBit(35);
   negBf = ~bf;
@@ -298,7 +298,7 @@ TEST(TBitField, can_invert_many_random_bits_bitfield)
 
 TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 {
-  const int size = 4;
+  const int size = 31;
   TBitField bf1(size), bf2(size);
 
   bf1.SetBit(1);
@@ -308,4 +308,51 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
   bf2.SetBit(2);
 
   EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, can_set_and_get_bit_1) {
+	const int size = 70;
+	TBitField bf(size);
+	const int bitNum = 33;
+
+	bf.SetBit(bitNum);
+
+	for (int i = 0; i < size; i++)
+		if (i == bitNum)
+			ASSERT_EQ(1, bf.GetBit(i));
+		else ASSERT_EQ(0, bf.GetBit(i));
+}
+
+TEST(TBitField, can_set_and_get_bit_2) {
+	const int size = 70;
+	TBitField bf1(size), bf2(size);
+	const int bitNum1 = 33;
+	const int bitNum2 = 34;
+
+	bf1.SetBit(bitNum1);
+	bf2.SetBit(bitNum2);
+
+	//EXPECT_NE(bf1.GetBit(bitNum1), bf2.GetBit(bitNum1));
+	//EXPECT_NE(bf1.GetBit(bitNum2), bf2.GetBit(bitNum2));
+	//EXPECT_EQ(0, bf2==bf1);
+	EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, can_do_OR_correctly) {
+	const int size1 = 70, size2 = 35;
+	TBitField bf1(size1), bf2(size2), bf3(size1);
+	for (int i = 0; i < size1; i += 2)
+		bf1.SetBit(i);
+	for (int i = 1; i < size2; i += 2)
+		bf2.SetBit(i);
+	for (int i = 0; i < size2; i++)
+		bf3.SetBit(i);
+	for (int i = size2 + 1; i < size1; i += 2)
+		bf3.SetBit(i);
+
+	TBitField res1 = bf1 | bf2;
+	TBitField res2 = bf2 | bf1;
+
+	EXPECT_EQ(bf3, res1);
+	EXPECT_EQ(bf3, res2);
 }
