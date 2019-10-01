@@ -9,6 +9,7 @@
 #define __BITFIELD_H__
 
 #include <iostream>
+#include <string> //Для ввода
 
 using namespace std;
 
